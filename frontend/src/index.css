@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-apple-bg text-apple-text font-sans antialiased transition-colors duration-300;
+  }
+  .dark body {
+    @apply bg-apple-darkBg text-white;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-apple-border rounded-full; }
+  .dark ::-webkit-scrollbar-thumb { @apply bg-apple-darkBorder; }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-apple border border-white/20 shadow-apple-light;
+  }
+  .dark .glass {
+    @apply bg-apple-darkCard/70 backdrop-blur-apple border-white/5 shadow-apple-dark;
+  }
+  .transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+}
