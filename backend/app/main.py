@@ -5,7 +5,7 @@ from app.db.database import engine, Base, SessionLocal
 from app import models
 
 # Импорт всех роутеров
-from app.api.v1 import auth, services, bookings, requests, chats, loyalty, reviews, users, analytics
+from app.api.v1 import auth, services, bookings, requests, chats, loyalty, reviews, users, analytics, notifications
 
 # Импорт моделей для заполнения справочников (seed_data)
 from app.models.user import Role
@@ -89,6 +89,7 @@ app.include_router(loyalty.router, prefix="/api/v1/loyalty", tags=["Програ
 app.include_router(reviews.router, prefix="/api/v1/reviews", tags=["Отзывы"])
 app.include_router(users.router, prefix="/api/v1/users", tags=["Пользователи (Админ)"])
 app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["Аналитика (Админ)"])
+app.include_router(notifications.router, prefix="/api/v1/notifications", tags=["Уведомления"])
 
 # ==========================================
 # КОРНЕВОЙ ЭНДПОИНТ

@@ -30,6 +30,7 @@ export const Sidebar = () => {
           { name: 'Дашборд', icon: Home, path: '/admin' },
           { name: 'Услуги', icon: Grid, path: '/admin/services' },
           { name: 'Пользователи', icon: Users, path: '/admin/users' },
+          { name: 'Отзывы', icon: MessageSquare, path: '/admin/reviews' },
         ];
       case 'Staff':
         return [

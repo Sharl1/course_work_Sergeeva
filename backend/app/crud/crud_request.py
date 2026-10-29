@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session, joinedload
 from app.models.booking import Request, RequestStatus, Booking, BookingStatus
 from app.models.loyalty import LoyaltyAccount, LoyaltyTransaction
 from app.schemas.request import RequestStatusUpdate
+from app.models.notification import Notification
 from decimal import Decimal
 
 def get_requests(db: Session, status_name: str = None, staff_id: int = None):
@@ -79,6 +80,22 @@ def update_request_status(db: Session, request_id: int, update_data: RequestStat
         cancelled_status = db.query(BookingStatus).filter(BookingStatus.StatusName == "Cancelled").first()
         if cancelled_status:
             booking.StatusID = cancelled_status.StatusID
+
+        # --- СОЗДАНИЕ УВЕДОМЛЕНИЯ ---
+    notif_msg = ""
+    if update_data.StatusName == "InProgress":
+        notif_msg = f"Ваш заказ «{booking.service.ServiceName}» взят в работу."
+    elif update_data.StatusName == "Completed":
+        notif_msg = f"Ваш заказ «{booking.service.ServiceName}» успешно выполнен. Спасибо!"
+    elif update_data.StatusName == "Rejected":
+        notif_msg = f"К сожалению, заказ «{booking.service.ServiceName}» отклонен. Причина: {update_data.Comment}"
+
+    if notif_msg:
+        db.add(Notification(
+            UserID=booking.UserID,
+            Title="Статус заказа обновлен",
+            Message=notif_msg
+        ))  
 
     db.commit()
     db.refresh(db_request)

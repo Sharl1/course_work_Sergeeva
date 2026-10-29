@@ -18,6 +18,7 @@ import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { ManageServices } from './pages/admin/ManageServices';
 import { ManageUsers } from './pages/admin/ManageUsers';
 import { useAuthStore } from './store/authStore';
+import { ManageReviews } from './pages/admin/ManageReviews';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -66,6 +67,7 @@ function App() {
             <Route path="/admin" element={role === 'Admin' ? <AdminDashboard /> : <Navigate to="/" replace />} />
             <Route path="/admin/services" element={role === 'Admin' ? <ManageServices /> : <Navigate to="/" replace />} />
             <Route path="/admin/users" element={role === 'Admin' ? <ManageUsers /> : <Navigate to="/" replace />} />
+            <Route path="/admin/reviews" element={role === 'Admin' ? <ManageReviews /> : <Navigate to="/" />} />
             
             {/* --- МАРШРУТЫ СОТРУДНИКА --- */}
             <Route path="/staff" element={role === 'Staff' ? <StaffDashboard /> : <Navigate to="/" replace />} />
